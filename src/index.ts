@@ -9,7 +9,7 @@ app.use(middlewares.morgan(NODE_ENV));
 
 // Routes
 app.get("/", (req, res) => {
-  res.json({ hello: "world" });
+  res.json({ hello: "yeahhh" });
 });
 
 app.listen(PORT, HOST_NAME, async () => {
