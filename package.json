@@ -9,6 +9,10 @@
     "build": "rimraf dist && swc ./src -d dist",
     "start": "node dist/index.js",
     "db:console": "docker compose exec database psql -h localhost -U postgres -d backend_dev",
+    "db:migrate": "knex migrate:latest --knexfile ./src/database/knexfile.ts",
+    "db:migrate:undo": "knex migrate:down --knexfile ./src/database/knexfile.ts",
+    "docker:db:migrate": "docker compose exec backend yarn db:migrate",
+    "docker:db:migrate:undo": "docker compose run backend yarn db:migrate:undo",
     "rebuild:backend": "docker compose build backend && docker compose rm --stop backend && docker compose up -d backend",
     "start:debug": "node --inspect=0.0.0.0 dist/index.js",
     "start:docker": "yarn build && yarn start:debug",
@@ -33,13 +37,16 @@
     "prettier": "^2.8.3",
     "prisma": "^4.9.0",
     "rimraf": "^4.1.2",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
   },
   "dependencies": {
     "@prisma/client": "4.9.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "morgan": "^1.10.0"
+    "knex": "^2.4.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.9.0"
   },
   "lint-staged": {
     "*.ts": [
