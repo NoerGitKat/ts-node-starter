@@ -10,5 +10,16 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     command: yarn start:docker
+    depends_on:
+      - database
     environment:
+      DATABASE_URL: postgres//postgres@database/backend_dev
       PORT: 8000
+
+  database:
+    image: postgres:15-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: backend_dev
+      POSTGRES_HOST_AUTH_METHOD: trust
